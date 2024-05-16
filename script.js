@@ -55,7 +55,7 @@ function calculateCalories(e) {
 
   const consumedCalories = breakfastCalories + lunchCalories + dinnerCalories + snacksCalories;
   const remainingCalories = budgetCalories - consumedCalories + exerciseCalories;
-  const surplusOrDeficit = remainingCalories >= 0 ? 'Surplus' : 'Deficit';
+  const surplusOrDeficit = remainingCalories < 0 ? 'Surplus' : 'Deficit';
   output.innerHTML = `
   <span class="${surplusOrDeficit.toLowerCase()}">${Math.abs(remainingCalories)} Calorie ${surplusOrDeficit}</span>
   <hr>
@@ -70,8 +70,8 @@ function calculateCalories(e) {
 function getCaloriesFromInputs(list) {
   let calories = 0;
 
-  for (let i = 0; i < list.length; i++) {
-    const currVal = cleanInputString(list[i].value);
+  for (const item of list) {
+    const currVal = cleanInputString(item.value);
     const invalidInputMatch = isInvalidInput(currVal);
 
     if (invalidInputMatch) {
@@ -87,8 +87,8 @@ function getCaloriesFromInputs(list) {
 function clearForm() {
   const inputContainers = Array.from(document.querySelectorAll('.input-container'));
 
-  for (let i = 0; i < inputContainers.length; i++) {
-    inputContainers[i].innerHTML = '';
+  for (const container of inputContainers) {
+    container.innerHTML = '';
   }
 
   budgetNumberInput.value = '';
